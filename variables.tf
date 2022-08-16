@@ -72,4 +72,3 @@ variable "pvm_instances" {
   default     = ""
   description = "The list of PVM instance IDs to base storage anti-affinity policy against, as defined for the selected Power Systems Virtual Server CRN"
 }
-
