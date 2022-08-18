@@ -5,12 +5,12 @@ variable "crn" {
 variable "license_repository_capacity" {
   type        = number
   default     = 1
-  description = "The VTL license repository capacity in terabyte value"
+  description = "The VTL licensed repository capacity in terabytes"
 }
 variable "memory" {
   type        = number
   default     = 18
-  description = "The amount of memory that you want to assign to your VTL in gigabytes.  Use the following formula: memory >= 16 + (2 * license_repository_capacity)"
+  description = "The amount of memory to assign to the VTL in gigabytes.  Use the following formula: memory >= 16 + (2 * license_repository_capacity)"
 }
 variable "processors" {
   type        = number
@@ -25,7 +25,7 @@ variable "instance_name" {
 variable "processor_type" {
   type        = string
   default     = "shared"
-  description = "The type of processor mode in which the VTL will run with 'shared', 'capped' or 'dedicated'"
+  description = "The type of processor mode in which the VTL will run: 'shared', 'capped', or 'dedicated'"
 }
 variable "sys_type" {
   type        = string
@@ -40,7 +40,7 @@ variable "storage_type" {
 variable "ssh_key_name" {
   type        = string
   default     = ""
-  description = "The name of the public SSH RSA key to use when creating the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
+  description = "The name of the public SSH RSA key to access the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
 }
 variable "network_1" {
   type        = string
@@ -60,15 +60,15 @@ variable "network_3" {
 variable "placement_group" {
   type        = string
   default     = ""
-  description = "The server placement group name where the VTL instance is placed, as defined for the selected Power Systems Virtual Server CRN"
+  description = "The server placement group name where the VTL instance will be placed, as defined for the selected Power Systems Virtual Server CRN"
 }
 variable "affinity_policy" {
   type        = string
   default     = "anti-affinity"
-  description = "The policy used when determining placement of the VTL volume based on an existing PVM instance ID (or comma-separated list of IDs)"
+  description = "The storage anti-affinity policy to use for placemant of the VTL volume if PVM instance IDs are sepcified"
 }
 variable "pvm_instances" {
   type        = string
   default     = ""
-  description = "The list of PVM instance IDs to base storage anti-affinity policy against, as defined for the selected Power Systems Virtual Server CRN"
+  description = "The comma-separated list of PVM instance IDs for the storage anti-affinity policy, as defined for the selected Power Systems Virtual Server CRN"
 }
