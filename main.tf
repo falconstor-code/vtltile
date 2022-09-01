@@ -10,7 +10,6 @@ data "ibm_pi_placement_groups" "cloud_instance_groups" {
   pi_cloud_instance_id = local.pid
 }
 data "ibm_pi_key" "key" {
-  count = length(var.ssh_key_name) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
   pi_key_name          = var.ssh_key_name
 }
