@@ -8,7 +8,7 @@ terraform {
 
 
 provider "ibm" {
-  #aalias = "tile"  
+  #alias = "tile"  
   region = local.region
   zone   = local.location
 }
