@@ -71,7 +71,7 @@ variable "vlan_datacenter" {
 
 variable "vlan_type" {
   type        = string
-  default     = "private"
+  default     = ""
   description = "vlan_type"
 }
 
