@@ -1,6 +1,6 @@
 resource "ibm_compute_ssh_key" "hce_ssh_key" {
-    label      = var.label
-    public_key = var.public_key
+    label      = var.SSH-key-name-vyatta
+    public_key = var.public_key_for_vyatta
 }
 
 data "ibm_compute_ssh_key" "public_key" {
@@ -49,25 +49,24 @@ data "ibm_network_vlan" "vlan" {
 
 # VTL tile Instance Creation 
 
-locals {
-  pvs_info = split(":", var.crn)
-  location = local.pvs_info[5]
-  region   = can(regex("-", local.location)) ? (can(regex("-[0-9]+$", local.location)) ? replace(local.location, regex("-[0-9]+$", local.location), "") : local.location) : (can(regex("[0-9]+$", local.location)) ? replace(local.location, regex("[0-9]+$", local.location), "") : local.location)
-  pid      = local.pvs_info[7]
-}
+
 
 data "ibm_pi_catalog_images" "catalog_images" {
+  provider             = ibm.tile
   sap                  = true
   vtl                  = true
   pi_cloud_instance_id = local.pid
 }
 data "ibm_pi_images" "cloud_instance_images" {
+  provider             = ibm.tile
   pi_cloud_instance_id = local.pid
 }
 data "ibm_pi_placement_groups" "cloud_instance_groups" {
+  provider             = ibm.tile
   pi_cloud_instance_id = local.pid
 }
 resource "ibm_pi_key" "sshkeys" {
+  provider             = ibm.tile
   pi_cloud_instance_id = local.pid
   pi_key_name          = var.pi_key_name         
   pi_ssh_key           = var.pi_ssh_key
@@ -75,6 +74,7 @@ resource "ibm_pi_key" "sshkeys" {
 
 
 resource "ibm_pi_network" "power_network_1" {
+  provider             = ibm.tile
   pi_network_name      = var.pi_network_name_1
   pi_cloud_instance_id = local.pid
   pi_network_type      = "vlan"
@@ -84,6 +84,7 @@ resource "ibm_pi_network" "power_network_1" {
 }
 
 resource "ibm_pi_network" "power_network_2" {
+  provider             = ibm.tile
   pi_network_name      = var.pi_network_name_2
   pi_cloud_instance_id = local.pid
   pi_network_type      = "vlan"
@@ -93,6 +94,7 @@ resource "ibm_pi_network" "power_network_2" {
 }
 
 resource "ibm_pi_network" "power_network_3" {
+  provider             = ibm.tile
   pi_network_name      = var.pi_network_name_3
   pi_cloud_instance_id = local.pid
   pi_network_type      = "vlan"
@@ -102,15 +104,18 @@ resource "ibm_pi_network" "power_network_3" {
 }
 
 data "ibm_pi_network" "network_1" {
+  provider             = ibm.tile
   pi_cloud_instance_id = local.pid
   pi_network_name      = ibm_pi_network.power_network_1.pi_network_name
 }
 data "ibm_pi_network" "network_2" {
+  provider             = ibm.tile
   count = length(var.pi_network_name_2) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
   pi_network_name      = ibm_pi_network.power_network_2.pi_network_name
 }
 data "ibm_pi_network" "network_3" {
+  provider             = ibm.tile
   count = length(var.pi_network_name_3) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
   pi_network_name      = ibm_pi_network.power_network_3.pi_network_name
@@ -125,6 +130,7 @@ locals {
 }
 
 resource "ibm_pi_image" "stock_image_copy" {
+  provider             = ibm.tile
   count = length(local.private_image_id) == 0 ? 1 : 0
   pi_image_name       = local.stock_image_name
   pi_image_id         = local.catalog_image[0].image_id
@@ -132,6 +138,7 @@ resource "ibm_pi_image" "stock_image_copy" {
 }
 
 resource "ibm_pi_instance" "instance" {
+  provider             = ibm.tile
   pi_cloud_instance_id = local.pid
   pi_memory            = var.pi_memory
   pi_processors        = var.pi_processors
@@ -194,9 +201,11 @@ resource "ibm_compute_vm_instance" "twc_terraform_sample" {
 
 #Cloud connection creation 
 resource "ibm_pi_cloud_connection" "cloud_connection" {
+  provider                   = ibm.tile
   pi_cloud_instance_id        = local.pid
   pi_cloud_connection_name    = var.pi_cloud_connection_name
   pi_cloud_connection_classic_enabled = true
+  pi_cloud_connection_networks = [data.ibm_pi_network.network_1.pi_network_name]
   pi_cloud_connection_metered = true
   pi_cloud_connection_speed    = var.pi_cloud_connection_speed
   pi_cloud_connection_gre_cidr = var.pi_cloud_connection_gre_cidr

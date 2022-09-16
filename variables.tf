@@ -1,16 +1,20 @@
-variable "label" {
+#Vyatta router details. 
+ #ssh key details
+variable "SSH-key-name-vyatta" {
   type        = string
   default     = ""
   description = "name of the ssh key for proxy server"
 
 }
 
-variable "public_key" {
+variable "public_key_for_vyatta" {
   type        = string
   default     = ""
   description = "public_ key for the ssh key"
 
 }
+
+ #router details
 
 variable "name" {
   type        = string
@@ -38,21 +42,23 @@ variable "datacenter" {
 
 variable "network_speed" {
   type        = number
-  default     = ""
-  description = "vyatta_network_speed"
+  default     = 1000
+  description = "vyatta_network_speed_in Mbps"
 }
 
 variable "public_bandwidth" {
   type        = number
-  default     = ""
-  description = "vyatta_public_bandwidth"
+  default     = 20000
+  description = "vyatta_public_bandwidth_Allowed public network traffic (in GB) per month"
 }
 
 variable "memory" {
   type        = number
-  default     = ""
+  default     = 64
   description = "vyatta_memory"
 }
+
+ #vlan details
 
 variable "vlan_name" {
   type        = string
@@ -72,7 +78,7 @@ variable "vlan_type" {
   description = "vlan_type"
 }
 
-
+#vtl-tile-instance-details
 variable "pi_key_name" {
   type        = string
   default     = ""
@@ -98,14 +104,14 @@ variable "pi_instance_name" {
 
 variable "pi_memory" {
   type        = number
-  default     = ""
-  description = "vtl_pi_memory"
+  default     = 34
+  description = "vtl_pi_memory_The amount of memory that you want to assign to your instance in gigabytes"
 }
 
 variable "pi_processors" {
   type        = number
-  default     = ""
-  description = "vtl_pi_processors"
+  default     = 2
+  description = "vtl_pi_processors_The number of vCPUs to assign to the VM as visible within the guest Operating System"
 }
 
 variable "pi_proc_type" {
@@ -128,7 +134,7 @@ variable "pi_storage_type" {
 
 variable "license_repository_capacity" {
   type        = number
-  default     = ""
+  default     = 1
   description = "The VTL license repository capacity in terabyte value"
 }
 
@@ -222,19 +228,22 @@ variable "ip_address3" {
   description = "The second network ID or name to assign to the VTL instance, as defined for the selected Power Systems Virtual Server CRN with in the range of network CIDR"
 }
 
+#COS-proxy-server-details
+ #sshkey details
 variable "label_proxy" {
   type        = string
   default     = ""
   description = "name of the ssh key for proxy server"
 
 }
-
+ 
 variable "public_key_proxy" {
   type        = string
   default     = ""
   description = "public_ key for the ssh key"
 }
 
+ #instance details
 variable "hostname-proxy" {
   type        = string
   default     = ""
@@ -261,21 +270,23 @@ variable "datacenter-proxy" {
 
 variable "network_speed-proxy" {
   type        = number
-  default     = ""
-  description = "proxy server network_speed"
+  default     = 100
+  description = "proxy server network_speed_The connection speed (in Mbps) for the instance's network components"
 }
 
 variable "cores-proxy" {
   type        = number
-  default     = ""
-  description = "proxy server cores"
+  default     = 2
+  description = "proxy server cores_The number of CPU cores that you want to allocate."
 }
 
 variable "memory-proxy" {
   type        = number
-  default     = ""
-  description = "proxy server memory"
+  default     = 4096
+  description = "proxy server memory_he amount of memory, expressed in megabytes"
 }
+
+#cloud connection details
 
 variable "pi_cloud_connection_name" {
   type        = string
@@ -285,8 +296,8 @@ variable "pi_cloud_connection_name" {
 
 variable "pi_cloud_connection_speed" {
   type        = number
-  default     = ""
-  description = "pi_cloud_connection_speed"
+  default     = 500
+  description = "pi_cloud_connection_speed_Speed of the cloud connection (speed in megabits per second)."
 }
 
 variable "pi_cloud_connection_gre_cidr" {
