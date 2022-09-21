@@ -8,7 +8,7 @@ data "ibm_compute_ssh_key" "public_key" {
 }
 
 resource "ibm_network_gateway" "gateway" {
-  name = var.name
+  name = var.vyatta_name
 
   members {
     hostname             = var.vyatta_hostname
@@ -173,7 +173,7 @@ resource "ibm_pi_instance" "instance" {
 
 # Cos server creation proxy \ any other
 resource "ibm_compute_ssh_key" "proxy_ssh_key" {
-    label      = var.proxy_label
+    label      = var.proxy_SSHkey_name
     public_key = var.proxy_public_key
 }
 
