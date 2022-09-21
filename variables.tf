@@ -1,5 +1,4 @@
-#Vyatta router details
- #ssh key details
+# Vyatta router details in Classic
 variable "vyatta_SSHkey_name" {
   type        = string
   default     = ""
@@ -51,7 +50,7 @@ variable "vyatta_memory" {
   description = "Vyatta router memory amount in MB"
 }
 
-# VLAN details
+# VLAN details in Classic
 variable "vlan_name" {
   type        = string
   default     = "FS_DRaas_vlan_name"
@@ -71,7 +70,7 @@ variable "vlan_type" {
 }
 
 
-# VTL tile details
+# VTL instance details in Power
 variable "vtl_SSHkey_name" {
   type        = string
   default     = ""
@@ -87,6 +86,7 @@ variable "vtl_public_key" {
 variable "vtl_crn" {
   type        = string
   default     = "VTL Cloud Resource Name (CRN)"
+  description = "VTL Cloud Resource Name (CRN) as Power datacenter"
 }
 
 variable "vtl_instance_name" {
@@ -220,7 +220,7 @@ variable "vtl_ip_address_3" {
 }
 
 
-# COS proxy server details
+# COS proxy server details in Classic
 variable "proxy_SSHkey_name" {
   type        = string
   default     = ""
@@ -234,7 +234,6 @@ variable "proxy_public_key" {
   description = "Proxy server public key ffor SSH key creation"
 }
 
- #instance details
 variable "proxy_hostname" {
   type        = string
   default     = "FS_DRaaS_proxy_hostname"
@@ -272,7 +271,7 @@ variable "proxy_memory" {
 }
 
 
-# Cloud connection details
+# Cloud connection details for direct link in Power
 variable "cloud_connection_name" {
   type        = string
   default     = "FS_DRaaS_cloud_connection"
