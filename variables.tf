@@ -16,27 +16,22 @@ variable "vyatta_public_key" {
 
 variable "vyatta_name" {
   type        = string
-  default     = ""
+  default     = "FS_DRaas_vyatta_domain"
   description = "Vyatta router name"
 }
 
 variable "vyatta_domain"{
   type        = string
-  default     = ""
+  default     = "FS_DRaas_vyatta_domain"
   description = "Domain name for Vyatta router"
 }
 
 variable "vyatta_hostname" {
   type        = string
-  default     = ""
+  default     = "FS_DRaas_vyatta_hostname"
   description = "Vyatta router hostname"
 }
 
-variable "vyatta_datacenter" {
-  type        = string
-  default     = ""
-  description = "Datacenter name for Vyatta router"
-}
 
 variable "vyatta_speed" {
   type        = number
@@ -59,20 +54,20 @@ variable "vyatta_memory" {
 # VLAN details
 variable "vlan_name" {
   type        = string
-  default     = ""
-  description = "vlan_name"
+  default     = "FS_DRaas_vlan_name"
+  description = "VLAN name"
 }
 
 variable "vlan_datacenter" {
   type        = string
   default     = ""
-  description = "vlan_datacenter"
+  description = "VLAN datacenter"
 }
 
 variable "vlan_type" {
   type        = string
   default     = "private"
-  description = "vlan_type"
+  description = "VLAN type: 'private', 'public'"
 }
 
 
@@ -242,26 +237,20 @@ variable "proxy_public_key" {
  #instance details
 variable "proxy_hostname" {
   type        = string
-  default     = ""
+  default     = "FS_DRaaS_proxy_hostname"
   description = "Proxy server hostname"
 }
 
 variable "proxy_domain" {
   type        = string
-  default     = ""
+  default     = "FS_DRaaS_proxy_domain"
   description = "Proxy server domain name"
 }
 
 variable "proxy_os" {
   type        = string
-  default     = ""
+  default     = "CENTOS_7_64"
   description = "Proxy server OS reference code"
-}
-
-variable "proxy_datacenter" {
-  type        = string
-  default     = ""
-  description = "Proxy server datacenter"
 }
 
 variable "proxy_speed" {
@@ -286,8 +275,8 @@ variable "proxy_memory" {
 # Cloud connection details
 variable "cloud_connection_name" {
   type        = string
-  default     = ""
-  description = "Cloud connetion name between Power and Classic using Generic Routing Encapsulation (GRE) tunnel"
+  default     = "FS_DRaaS_cloud_connection"
+  description = "The name of the Power direct link to Classic using Generic Routing Encapsulation (GRE) tunnel"
 }
 
 variable "cloud_connection_speed" {

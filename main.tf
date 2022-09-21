@@ -13,7 +13,7 @@ resource "ibm_network_gateway" "gateway" {
   members {
     hostname             = var.vyatta_hostname
     domain               = var.vyatta_domain
-    datacenter           = var.vyatta_datacenter
+    datacenter           = ibm_network_vlan.test_vlan.datacenter
     network_speed        = var.vyatta_speed
     package_key_name     = "VIRTUAL_ROUTER_APPLIANCE_10_GPBS" 
     private_network_only = false
@@ -181,7 +181,7 @@ resource "ibm_compute_vm_instance" "twc_terraform_sample" {
   hostname                   = var.proxy_hostname
   domain                     = var.proxy_domain
   os_reference_code          = var.proxy_os
-  datacenter                 = var.proxy_datacenter
+  datacenter                 = ibm_network_vlan.test_vlan.datacenter
   network_speed              = var.proxy_speed
   hourly_billing             = true
   private_network_only       = false
