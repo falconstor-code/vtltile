@@ -65,8 +65,8 @@ variable "vlan_datacenter" {
 
 variable "vlan_type" {
   type        = string
-  default     = "private"
-  description = "VLAN type: 'private', 'public'"
+  default     = "PRIVATE"
+  description = "VLAN type: 'PRIVATE', 'PUBLIC'"
 }
 
 
@@ -116,13 +116,13 @@ variable "vtl_processor_type" {
 variable "vtl_sys_type" {
   type        = string
   default     = "s922"
-  description = "Type of storage tier to assign to the VTL instance based on required performance: 'tier1' or 'tier3'"
+  description = "Type of system on which to create the VTL instance: 's922', 'e880', 'e980', 'e1080', or 's1022'"
 }
 
 variable "vtl_storage_type" {
   type        = string
   default     = "tier1"
-  description = "Type of system on which to create the VTL instance: 's922', 'e880', 'e980', 'e1080', or 's1022'"
+  description = "Type of storage tier to assign to the VTL instance based on required performance: 'tier1' or 'tier3'"
 }
 
 variable "vtl_licensed_repository_capacity" {
