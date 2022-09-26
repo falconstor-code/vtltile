@@ -47,15 +47,31 @@ variable "network_1" {
   default     = ""
   description = "The first network ID or name to assign to the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
 }
+variable "network_1_ip" {
+  type        = string
+  default     = ""
+  description = "Specific IP address to assign to the first network rather than automatic assignment within the IP range"
+}
 variable "network_2" {
   type        = string
   default     = ""
   description = "The second network ID or name to assign to the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
 }
+variable "network_2_ip" {
+  type        = string
+  default     = ""
+  description = "Specific IP address to assign to the second network rather than automatic assignment within the IP range"
+}
 variable "network_3" {
   type        = string
   default     = ""
   description = "The third network ID or name to assign to the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
+}
+
+variable "network_3_ip" {
+  type        = string
+  default     = ""
+  description = "Specific IP address to assign to the third network rather than automatic assignment within the IP range"
 }
 variable "placement_group" {
   type        = string
