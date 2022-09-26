@@ -1,25 +1,26 @@
 variable "crn" {
   type        = string
+  default     = ""
   description = "Power Systems Virtual Server CRN"
 }
 variable "license_repository_capacity" {
   type        = number
   default     = 1
-  description = "The VTL licensed repository capacity in terabytes"
+  description = "The VTL licensed repository capacity in TB"
 }
 variable "memory" {
   type        = number
   default     = 18
-  description = "The amount of memory to assign to the VTL in gigabytes.  Use the following formula: memory >= 16 + (2 * license_repository_capacity)"
+  description = "The amount of memory to assign to the VTL in GB according to the following formula: memory >= 16 + (2 * license_repository_capacity)"
 }
 variable "processors" {
   type        = number
   default     = 2
-  description = "The number of vCPUs to assign to the VTL as visible within the guest Operating System"
+  description = "The number of vCPUs to assign to the VTL as visible within the guest operating system"
 }
 variable "instance_name" {
   type        = string
-  default     = "my_catalog_vtl"
+  default     = ""
   description = "The name to assign to the VTL instance"
 }
 variable "processor_type" {
@@ -67,7 +68,6 @@ variable "network_3" {
   default     = ""
   description = "The third network ID or name to assign to the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
 }
-
 variable "network_3_ip" {
   type        = string
   default     = ""
