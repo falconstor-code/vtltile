@@ -16,16 +16,19 @@ data "ibm_pi_key" "key" {
 data "ibm_pi_network" "network_1" {
   pi_cloud_instance_id = local.pid
   pi_network_name      = var.network_1
+  pi_ip_address        = length(var.network_1_ip) > 0 ? var.network_1_ip : ""
 }
 data "ibm_pi_network" "network_2" {
   count = length(var.network_2) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
   pi_network_name      = var.network_2
+  pi_ip_address        = length(var.network_2_ip) > 0 ? var.network_2_ip : ""
 }
 data "ibm_pi_network" "network_3" {
   count = length(var.network_3) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
   pi_network_name      = var.network_3
+  pi_ip_address        = length(var.network_3_ip) > 0 ? var.network_3_ip : ""
 }
 locals {
   stock_image_name = "VTL-FalconStor-10_03-001"
