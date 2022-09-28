@@ -8,7 +8,7 @@ data "ibm_compute_ssh_key" "public_key" {
 }
 
 resource "ibm_network_gateway" "gateway" {
-  name = var.vyatta_name
+  name = var.vyatta_domain
 
   members {
     hostname             = var.vyatta_hostname
@@ -32,8 +32,17 @@ resource "ibm_network_gateway" "gateway" {
 
 resource "ibm_network_vlan" "test_vlan" {
   name            = var.vlan_name
-  datacenter      = var.vlan_datacenter
+  datacenter      = var.datacenter_for_classic
   type            = var.vlan_type
+}
+
+resource "ibm_subnet" "portable_subnet" {
+  type       = "Portable"
+  private    = true
+  ip_version = 4
+  capacity   = 32
+  vlan_id    = ibm_network_vlan.test_vlan.id
+  notes      = "portable_subnet"
 }
 
 resource "ibm_network_gateway_vlan_association" "gateway_vlan_association" {
@@ -207,3 +216,4 @@ resource "ibm_pi_cloud_connection" "cloud_connection" {
   pi_cloud_connection_gre_cidr = var.cloud_connection_gre_cidr
   pi_cloud_connection_gre_destination_address= ibm_network_gateway.gateway.private_ipv4_address
 }
+

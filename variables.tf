@@ -1,7 +1,24 @@
-# Vyatta router details in Classic
-variable "vyatta_SSHkey_name" {
+variable "ibmcloud_api_key" {
   type        = string
   default     = ""
+}
+
+variable "iaas_classic_username" {
+  type        = string
+  default     = ""
+}
+
+variable "iaas_classic_api_key" {
+  type        = string
+  default     = ""
+}
+
+
+#Vyatta router details
+ #ssh key details
+variable "vyatta_SSHkey_name" {
+  type        = string
+  default     = "vyatta_SSHkey_name"
   description = "Name of the SSH key for Vyatta router"
 
 }
@@ -50,17 +67,17 @@ variable "vyatta_memory" {
   description = "Vyatta router memory amount in MB"
 }
 
-# VLAN details in Classic
+# VLAN details
 variable "vlan_name" {
   type        = string
   default     = "FS_DRaas_vlan_name"
   description = "VLAN name"
 }
 
-variable "vlan_datacenter" {
+variable "datacenter_for_classic" {
   type        = string
   default     = ""
-  description = "VLAN datacenter"
+  description = "datacenter_for_classic"
 }
 
 variable "vlan_type" {
@@ -70,10 +87,10 @@ variable "vlan_type" {
 }
 
 
-# VTL instance details in Power
+# VTL tile details
 variable "vtl_SSHkey_name" {
   type        = string
-  default     = ""
+  default     = "vtl_SSHkey"
   description = "VTL SSH key name"
 }
 
@@ -83,15 +100,15 @@ variable "vtl_public_key" {
   description = "VTL public key for SSH key creation"
 }
 
+
 variable "vtl_crn" {
   type        = string
-  default     = "VTL Cloud Resource Name (CRN)"
-  description = "VTL Cloud Resource Name (CRN) as Power datacenter"
+  default     = ""
 }
 
 variable "vtl_instance_name" {
   type        = string
-  default     = ""
+  default     = "vtl_instance"
   description = "VTL instance name"
 }
 
@@ -116,13 +133,13 @@ variable "vtl_processor_type" {
 variable "vtl_sys_type" {
   type        = string
   default     = "s922"
-  description = "Type of system on which to create the VTL instance: 's922', 'e880', 'e980', 'e1080', or 's1022'"
+  description = "Type of storage tier to assign to the VTL instance based on required performance: 'tier1' or 'tier3'"
 }
 
 variable "vtl_storage_type" {
   type        = string
   default     = "tier1"
-  description = "Type of storage tier to assign to the VTL instance based on required performance: 'tier1' or 'tier3'"
+  description = "Type of system on which to create the VTL instance: 's922', 'e880', 'e980', 'e1080', or 's1022'"
 }
 
 variable "vtl_licensed_repository_capacity" {
@@ -192,7 +209,7 @@ variable "vtl_placement_group" {
 }
 variable "vtl_affinity_policy" {
   type        = string
-  default     = ""
+  default     =  "anti-affinity"
   description = "Storage anti-affinity policy to use for placemant of the VTL volume if PVM instance IDs are sepcified"
 }
 variable "vtl_pvm_instances" {
@@ -220,10 +237,10 @@ variable "vtl_ip_address_3" {
 }
 
 
-# COS proxy server details in Classic
+# COS proxy server details
 variable "proxy_SSHkey_name" {
   type        = string
-  default     = ""
+  default     = "proxy_SSHkey"
   description = "Name of the SSH key for the proxy server"
 
 }
@@ -234,15 +251,16 @@ variable "proxy_public_key" {
   description = "Proxy server public key ffor SSH key creation"
 }
 
+ #instance details
 variable "proxy_hostname" {
   type        = string
-  default     = "FS_DRaaS_proxy_hostname"
+  default     = "FS.DRaaS.proxy.hostname"
   description = "Proxy server hostname"
 }
 
 variable "proxy_domain" {
   type        = string
-  default     = "FS_DRaaS_proxy_domain"
+  default     = "FS.DRaaS.proxy.domain"
   description = "Proxy server domain name"
 }
 
@@ -271,7 +289,7 @@ variable "proxy_memory" {
 }
 
 
-# Cloud connection details for direct link in Power
+# Cloud connection details
 variable "cloud_connection_name" {
   type        = string
   default     = "FS_DRaaS_cloud_connection"

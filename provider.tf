@@ -6,7 +6,6 @@ terraform {
   }
 }
 
-
 locals {
   pvs_info = split(":", var.vtl_crn)
   location = local.pvs_info[5]
@@ -15,7 +14,10 @@ locals {
 }
 
 provider "ibm" {
-  alias = "tile"  
+  alias = "tile" 
+  ibmcloud_api_key      = var.ibmcloud_api_key
+  iaas_classic_username = var.iaas_classic_username
+  iaas_classic_api_key  = var.iaas_classic_api_key 
   region = local.region
   zone   = local.location
 }
