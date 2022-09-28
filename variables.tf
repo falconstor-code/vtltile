@@ -1,90 +1,309 @@
-variable "crn" {
+variable "ibmcloud_api_key" {
   type        = string
   default     = ""
-  description = "Power Systems Virtual Server CRN"
 }
-variable "license_repository_capacity" {
+
+variable "iaas_classic_username" {
+  type        = string
+  default     = ""
+}
+
+variable "iaas_classic_api_key" {
+  type        = string
+  default     = ""
+}
+
+
+#Vyatta router details
+ #ssh key details
+variable "vyatta_SSHkey_name" {
+  type        = string
+  default     = "vyatta_SSHkey_name"
+  description = "Name of the SSH key for Vyatta router"
+
+}
+
+variable "vyatta_public_key" {
+  type        = string
+  default     = ""
+  description = "Vyatta router public key for SSH key creation"
+
+}
+
+variable "vyatta_name" {
+  type        = string
+  default     = "FS_DRaas_vyatta_domain"
+  description = "Vyatta router name"
+}
+
+variable "vyatta_domain"{
+  type        = string
+  default     = "FS_DRaas_vyatta_domain"
+  description = "Domain name for Vyatta router"
+}
+
+variable "vyatta_hostname" {
+  type        = string
+  default     = "FS_DRaas_vyatta_hostname"
+  description = "Vyatta router hostname"
+}
+
+
+variable "vyatta_speed" {
   type        = number
-  default     = 1
-  description = "The VTL licensed repository capacity in TB"
+  default     = 1000
+  description = "Vyatta network speed in Mb/s"
 }
-variable "memory" {
+
+variable "vyatta_public_bandwidth" {
+  type        = number
+  default     = 20000
+  description = "Allowed Vyatta traffic over public network in GB/month"
+}
+
+variable "vyatta_memory" {
+  type        = number
+  default     = 64
+  description = "Vyatta router memory amount in MB"
+}
+
+# VLAN details
+variable "vlan_name" {
+  type        = string
+  default     = "FS_DRaas_vlan_name"
+  description = "VLAN name"
+}
+
+variable "datacenter_for_classic" {
+  type        = string
+  default     = ""
+  description = "datacenter_for_classic"
+}
+
+variable "vlan_type" {
+  type        = string
+  default     = "PRIVATE"
+  description = "VLAN type: 'PRIVATE', 'PUBLIC'"
+}
+
+
+# VTL tile details
+variable "vtl_SSHkey_name" {
+  type        = string
+  default     = "vtl_SSHkey"
+  description = "VTL SSH key name"
+}
+
+variable "vtl_public_key" {
+  type        = string
+  default     = ""
+  description = "VTL public key for SSH key creation"
+}
+
+
+variable "vtl_crn" {
+  type        = string
+  default     = ""
+}
+
+variable "vtl_instance_name" {
+  type        = string
+  default     = "vtl_instance"
+  description = "VTL instance name"
+}
+
+variable "vtl_memory" {
   type        = number
   default     = 18
-  description = "The amount of memory to assign to the VTL in GB according to the following formula: memory >= 16 + (2 * license_repository_capacity)"
+  description = " VTL memory amount in GB; it should be >= 16 + (2 * licensed_repository_capacity)"
 }
-variable "processors" {
+
+variable "vtl_processors" {
   type        = number
   default     = 2
-  description = "The number of vCPUs to assign to the VTL as visible within the guest operating system"
+  description = "Number of CPU cores to allocate for VTL instance"
 }
-variable "instance_name" {
-  type        = string
-  default     = ""
-  description = "The name to assign to the VTL instance"
-}
-variable "processor_type" {
+
+variable "vtl_processor_type" {
   type        = string
   default     = "shared"
-  description = "The type of processor mode in which the VTL will run: 'shared', 'capped', or 'dedicated'"
+  description = "VTL processor type: 'shared', 'capped', or 'dedicated'"
 }
-variable "sys_type" {
+
+variable "vtl_sys_type" {
   type        = string
   default     = "s922"
-  description = "The type of system on which to create the VTL: 's922', 'e880', 'e980', 'e1080', or 's1022'"
+  description = "Type of storage tier to assign to the VTL instance based on required performance: 'tier1' or 'tier3'"
 }
-variable "storage_type" {
+
+variable "vtl_storage_type" {
   type        = string
   default     = "tier1"
-  description = "The type of storage tier to assign for storage volume performance: 'tier1' or 'tier3'"
+  description = "Type of system on which to create the VTL instance: 's922', 'e880', 'e980', 'e1080', or 's1022'"
 }
-variable "ssh_key_name" {
+
+variable "vtl_licensed_repository_capacity" {
+  type        = number
+  default     = 1
+  description = "VTL licensed repository capacity in TB"
+}
+
+variable "vtl_network_name_1" {
   type        = string
   default     = ""
-  description = "The name of the public SSH RSA key to access the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
+  description = "First network ID or name to assign to the VTL instance"
 }
-variable "network_1" {
+
+variable "vtl_cidr_1" {
   type        = string
   default     = ""
-  description = "The first network ID or name to assign to the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
+  description = "First network IP addresse range"
 }
-variable "network_1_ip" {
+
+variable "vtl_gateway_1" {
+  type        = string
+  default     = ""
+  description = "First network gateway IP address"
+}
+
+variable "vtl_network_name_2" {
+  type        = string
+  default     = ""
+  description = "Second network ID or name to assign to the VTL instance"
+}
+
+variable "vtl_cidr_2" {
+  type        = string
+  default     = ""
+  description = "Second network IP addresse range"
+}
+
+variable "vtl_gateway_2" {
+  type        = string
+  default     = ""
+  description = "Second network gateway IP address"
+}
+
+variable "vtl_network_name_3" {
+  type        = string
+  default     = ""
+  description = "Third network ID or name to assign to the VTL instance"
+}
+
+variable "vtl_cidr_3" {
+  type        = string
+  default     = ""
+  description = "Third network IP addresse range"
+}
+
+variable "vtl_gateway_3" {
+  type        = string
+  default     = ""
+  description = "Third network gateway IP address"
+}
+
+variable "vtl_placement_group" {
+  type        = string
+  default     = ""
+  description = "Server group name where the VTL instance will be placed, as defined for the selected Power Systems Virtual Server CRN"
+}
+variable "vtl_affinity_policy" {
+  type        = string
+  default     =  "anti-affinity"
+  description = "Storage anti-affinity policy to use for placemant of the VTL volume if PVM instance IDs are sepcified"
+}
+variable "vtl_pvm_instances" {
+  type        = string
+  default     = ""
+  description = "Comma-separated list of PVM instance IDs for the storage anti-affinity policy, as defined for the selected Power Systems Virtual Server CRN"
+}
+
+variable "vtl_ip_address_1" {
   type        = string
   default     = ""
   description = "Specific IP address to assign to the first network rather than automatic assignment within the IP range"
 }
-variable "network_2" {
-  type        = string
-  default     = ""
-  description = "The second network ID or name to assign to the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
-}
-variable "network_2_ip" {
+
+variable "vtl_ip_address_2" {
   type        = string
   default     = ""
   description = "Specific IP address to assign to the second network rather than automatic assignment within the IP range"
 }
-variable "network_3" {
-  type        = string
-  default     = ""
-  description = "The third network ID or name to assign to the VTL instance, as defined for the selected Power Systems Virtual Server CRN"
-}
-variable "network_3_ip" {
+
+variable "vtl_ip_address_3" {
   type        = string
   default     = ""
   description = "Specific IP address to assign to the third network rather than automatic assignment within the IP range"
 }
-variable "placement_group" {
+
+
+# COS proxy server details
+variable "proxy_SSHkey_name" {
+  type        = string
+  default     = "proxy_SSHkey"
+  description = "Name of the SSH key for the proxy server"
+
+}
+ 
+variable "proxy_public_key" {
   type        = string
   default     = ""
-  description = "The server placement group name where the VTL instance will be placed, as defined for the selected Power Systems Virtual Server CRN"
+  description = "Proxy server public key ffor SSH key creation"
 }
-variable "affinity_policy" {
+
+ #instance details
+variable "proxy_hostname" {
   type        = string
-  default     = "anti-affinity"
-  description = "The storage anti-affinity policy to use for placemant of the VTL volume if PVM instance IDs are sepcified"
+  default     = "FS.DRaaS.proxy.hostname"
+  description = "Proxy server hostname"
 }
-variable "pvm_instances" {
+
+variable "proxy_domain" {
+  type        = string
+  default     = "FS.DRaaS.proxy.domain"
+  description = "Proxy server domain name"
+}
+
+variable "proxy_os" {
+  type        = string
+  default     = "CENTOS_7_64"
+  description = "Proxy server OS reference code"
+}
+
+variable "proxy_speed" {
+  type        = number
+  default     = 100
+  description = "Proxy server network speed in Mb/s for the instance's network components"
+}
+
+variable "proxy_cores" {
+  type        = number
+  default     = 2
+  description = "Number of CPU cores to allocate for the proxy server"
+}
+
+variable "proxy_memory" {
+  type        = number
+  default     = 4096
+  description = "Proxy server memory amount in MB"
+}
+
+
+# Cloud connection details
+variable "cloud_connection_name" {
+  type        = string
+  default     = "FS_DRaaS_cloud_connection"
+  description = "The name of the Power direct link to Classic using Generic Routing Encapsulation (GRE) tunnel"
+}
+
+variable "cloud_connection_speed" {
+  type        = number
+  default     = 500
+  description = "Cloud connection speed in Mb/s"
+}
+
+variable "cloud_connection_gre_cidr" {
   type        = string
   default     = ""
-  description = "The comma-separated list of PVM instance IDs for the storage anti-affinity policy, as defined for the selected Power Systems Virtual Server CRN"
+  description = "Range of IP addresses for GRE as Classless Inter-Domain Routing (CIDR)"
 }
