@@ -80,6 +80,7 @@ resource "ibm_pi_key" "sshkeys" {
   pi_ssh_key           = var.vtl_public_key
 }
 
+
 resource "ibm_pi_network" "power_network_1" {
   provider             = ibm.tile
   pi_network_name      = var.vtl_network_name_1
@@ -91,6 +92,7 @@ resource "ibm_pi_network" "power_network_1" {
 
 resource "ibm_pi_network" "power_network_2" {
   provider             = ibm.tile
+  count = length(var.vtl_network_name_2) > 0 ? 1 : 0
   pi_network_name      = var.vtl_network_name_2
   pi_cloud_instance_id = local.pid
   pi_network_type      = "vlan"
@@ -100,6 +102,7 @@ resource "ibm_pi_network" "power_network_2" {
 
 resource "ibm_pi_network" "power_network_3" {
   provider             = ibm.tile
+  count = length(var.vtl_network_name_3) > 0 ? 1 : 0
   pi_network_name      = var.vtl_network_name_3
   pi_cloud_instance_id = local.pid
   pi_network_type      = "vlan"
@@ -117,14 +120,14 @@ data "ibm_pi_network" "network_2" {
   provider             = ibm.tile
   count = length(var.vtl_network_name_2) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
-  pi_network_name      = ibm_pi_network.power_network_2.pi_network_name
+  pi_network_name      = ibm_pi_network.power_network_2[0].pi_network_name
 }
 
 data "ibm_pi_network" "network_3" {
   provider             = ibm.tile
   count = length(var.vtl_network_name_3) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
-  pi_network_name      = ibm_pi_network.power_network_3.pi_network_name
+  pi_network_name      = ibm_pi_network.power_network_3[0].pi_network_name
 }
 
 locals {
@@ -155,26 +158,24 @@ resource "ibm_pi_instance" "instance" {
   pi_key_pair_name     = ibm_pi_key.sshkeys.id
   pi_sys_type          = var.vtl_sys_type
   pi_storage_type      = var.vtl_storage_type
-  pi_affinity_policy   = length(var.vtl_pvm_instances) > 0 ? var.vtl_affinity_policy : null
-  pi_anti_affinity_instances = length(var.vtl_pvm_instances) > 0 ? split(",", var.vtl_pvm_instances) : null
   pi_placement_group_id = local.placement_group_id
   pi_license_repository_capacity = var.vtl_licensed_repository_capacity
   pi_network {
     network_id = data.ibm_pi_network.network_1.id
-    ip_address = var.vtl_ip_address_1
+    ip_address = length(var.vtl_ip_address_1) > 0 ? var.vtl_ip_address_1 : ""
   }
   dynamic "pi_network" {
     for_each = var.vtl_network_name_2 == "" ? [] : [1]
     content {
       network_id = data.ibm_pi_network.network_2[0].id
-      ip_address = var.vtl_ip_address_2
+      ip_address = length(var.vtl_ip_address_2) > 0 ? var.vtl_ip_address_2 : ""
     }
   }
   dynamic "pi_network" {
     for_each = var.vtl_network_name_3 == "" ? [] : [1]
     content {
       network_id = data.ibm_pi_network.network_3[0].id
-      ip_address = var.vtl_ip_address_3
+      ip_address = length(var.vtl_ip_address_3) > 0 ? var.vtl_ip_address_3 : ""
     }
   }
 }
@@ -216,4 +217,6 @@ resource "ibm_pi_cloud_connection" "cloud_connection" {
   pi_cloud_connection_gre_cidr = var.cloud_connection_gre_cidr
   pi_cloud_connection_gre_destination_address= ibm_network_gateway.gateway.private_ipv4_address
 }
+
+
 
