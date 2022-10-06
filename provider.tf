@@ -5,13 +5,13 @@ terraform {
     }
   }
 }
+
 provider "ibm" {
-  region = var.region
-  zone   = var.zone
+  region = var.classic_region
+  zone   = var.classic_zone
   ibmcloud_api_key      = var.ibmcloud_api_key
-  iaas_classic_username = var.iaas_classic_username
-  iaas_classic_api_key  = var.iaas_classic_api_key
-  
+  iaas_classic_username = var.classic_username
+  iaas_classic_api_key  = var.classic_api_key
 }
 
 locals {
@@ -24,8 +24,8 @@ locals {
 provider "ibm" {
   alias = "tile" 
   ibmcloud_api_key      = var.ibmcloud_api_key
-  iaas_classic_username = var.iaas_classic_username
-  iaas_classic_api_key  = var.iaas_classic_api_key 
+  iaas_classic_username = var.classic_username
+  iaas_classic_api_key  = var.classic_api_key 
   region = local.region
   zone   = local.location
 }
