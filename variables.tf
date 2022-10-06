@@ -1,43 +1,40 @@
-variable "region" {
+# Classic infrastructure details
+variable "classic_region" {
   type        = string
   default     = "jp-tok"
+  description = "Classic infrastructure region"
 }
 
-variable "zone" {
+variable "classic_zone" {
   type        = string
   default     = "jp-tok-4"
+  description = "Classic infrastructure zone"
 }
 
-variable "ibmcloud_api_key" {
+variable "classic_username" {
   type        = string
-  default     = "OQNqQ_ViLEbciYpwVmxOQ27hkNfj0D5OBRY9kV8qx_qm"
+  default     = ""
+  description = "Classic infrastructure Softlayer username"
 }
 
-variable "iaas_classic_username" {
+variable "classic_api_key" {
   type        = string
-  default     = "2353501_nagendra.dosapati@falconstor.com"
-}
-
-variable "iaas_classic_api_key" {
-  type        = string
-  default     = "68546716eb992958e804ea2a7cdc5e17e1133ddf0ebcb42044c9f5c5b0b8bfee"
+  default     = ""
+  description = "Classic infrastructure API key"
 }
 
 
-#Vyatta router details
-#ssh key details
+# Vyatta router details in Classic infrastructure
 variable "vyatta_SSHkey_name" {
   type        = string
-  default     = "vyatta_SSHkey_name"
+  default     = ""
   description = "Name of the SSH key for Vyatta router"
-
 }
 
 variable "vyatta_public_key" {
   type        = string
-  default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCGFYxD6YYwRM9VH06fmfLm1SGraxrGxBUL1kT0lewOkkrzXDCaunjLKivY/0KLFricipnswcaYF/STf0h4scy2M4QJTBemiAsisOXGHjdOdNtZaQIeH0E5t4y/d354QqdU0jZ7k26+5KfNyFw0vVjgVoYF6sHNxyGV1m3qnCN3UgCyENxXk3ffDDi4qXhll8ujj206hWXlN+/5yMUHNTP2wYjQEGJvXNL1Xr/52aWpiCx1uF/UIseWfR6l/5jGgX5/AuUzx99j1zndThcxbSJgv2Q4iO7C9+7k8ziFr7ac/BQsUReMUdi7+KWctOUky2iJLwSRhuoMHVsxttFjxTSJ rsa-key-20220922"
+  default     = ""
   description = "Vyatta router public key for SSH key creation"
-
 }
 
 variable "vyatta_name" {
@@ -58,7 +55,6 @@ variable "vyatta_hostname" {
   description = "Vyatta router hostname"
 }
 
-
 variable "vyatta_speed" {
   type        = number
   default     = 1000
@@ -77,17 +73,18 @@ variable "vyatta_memory" {
   description = "Vyatta router memory amount in MB"
 }
 
-# VLAN details
+
+# VLAN details in Classic infrastructure
 variable "vlan_name" {
   type        = string
   default     = "FS_DRaas_vlan_name"
   description = "VLAN name"
 }
 
-variable "datacenter_for_classic" {
+variable "vlan_datacenter" {
   type        = string
   default     = "tok04"
-  description = "datacenter_for_classic"
+  description = "VLAN datacenter"
 }
 
 variable "vlan_type" {
@@ -97,35 +94,113 @@ variable "vlan_type" {
 }
 
 
-# VTL tile details
+# COS proxy server details in Classic infrastructure
+variable "proxy_SSHkey_name" {
+  type        = string
+  default     = ""
+  description = "Name of the SSH key for the proxy server"
+}
+ 
+variable "proxy_public_key" {
+  type        = string
+  default     = ""
+  description = "Proxy server public key ffor SSH key creation"
+}
+
+variable "proxy_hostname" {
+  type        = string
+  default     = "FS.DRaaS.proxy.hostname"
+  description = "Proxy server hostname"
+}
+
+variable "proxy_domain" {
+  type        = string
+  default     = "FS.DRaaS.proxy.domain"
+  description = "Proxy server domain name"
+}
+
+variable "proxy_os" {
+  type        = string
+  default     = "CENTOS_7_64"
+  description = "Proxy server OS reference code"
+}
+
+variable "proxy_speed" {
+  type        = number
+  default     = 100
+  description = "Proxy server network speed in Mb/s"
+}
+
+variable "proxy_cores" {
+  type        = number
+  default     = 2
+  description = "Number of CPU cores to allocate for the proxy server"
+}
+
+variable "proxy_memory" {
+  type        = number
+  default     = 4096
+  description = "Proxy server memory amount in MB"
+}
+
+
+# IBM API key in Power infrastructure 
+variable "ibmcloud_api_key" {
+  type        = string
+  default     = ""
+  description = "IBM Cloud API key"
+}
+
+
+# Cloud connection details in Power infrastructure
+variable "cloud_connection_name" {
+  type        = string
+  default     = "FS_DRaaS_cloud_connection"
+  description = "Name of the direct link in Power infrastructure to connect to Classic infrastructure using Generic Routing Encapsulation (GRE) tunnel"
+}
+
+variable "cloud_connection_gre_cidr" {
+  type        = string
+  default     = ""
+  description = "Range of IP addresses for GRE as Classless Inter-Domain Routing (CIDR)"
+}
+
+variable "cloud_connection_speed" {
+  type        = number
+  default     = 500
+  description = "Cloud connection speed in Mb/s"
+}
+
+
+# VTL tile details in Power infrastructure
 variable "vtl_SSHkey_name" {
   type        = string
-  default     = "vtl"
+  default     = ""
   description = "VTL SSH key name"
 }
 
 variable "vtl_public_key" {
   type        = string
-  default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCTcdtPy+CkJFh2RPz3tGOF0ZPC9FUb1b1ZnwiuMN2sRDpVVtGsZC2soYMvz1YkMOpZTc+UvnUWRl3pm0XFe1udisbvyc4j/AKbCz69n6M1x5FXkxh83gURkmrdnjJvC9Dh4ScciSt05HEMYIeXJyiGh+dc0d6XHz6K7WcjdL+laOV72bCy56y9mZBzDD3/vSKdXnfhfl4i7cinWr3xMfiBE3AHkJcglTrr2E8K6OXwABXeAdk+5AECcrGMj6M1i3Gx7Sqkfd/CPYJGK4eCdIkxbgwE64+qgEr028I0fBxZ7MTm+GKuySjZA+pLwp1VggmK9GEj8ItumdGtL33F4ZY9 rsa-key-20221004"
+  default     = ""
   description = "VTL public key for SSH key creation"
 }
 
-
 variable "vtl_crn" {
   type        = string
-  default     = "crn:v1:bluemix:public:power-iaas:tok04:a/3844b1cf5cb34837a8c414c73bb08776:d2763b70-f6dc-4828-8ac0-d133b7db3d4c::"
+  default     = ""
+  description = "VTL Power Systems Virtual Server Cloud Resource Name (CRN)"
 }
 
 variable "vtl_instance_name" {
   type        = string
-  default     = "vtl_instance"
+  default     = ""
   description = "VTL instance name"
 }
 
 variable "vtl_memory" {
   type        = number
   default     = 18
-  description = " VTL memory amount in GB; it should be >= 16 + (2 * licensed_repository_capacity)"
+  description = "VTL memory amount in GB; it should be >= 16 + (2 * licensed_repository_capacity)"
 }
 
 variable "vtl_processors" {
@@ -158,58 +233,76 @@ variable "vtl_licensed_repository_capacity" {
   description = "VTL licensed repository capacity in TB"
 }
 
-variable "vtl_network_name_1" {
+variable "vtl_network1_name" {
   type        = string
-  default     = "vtl"
+  default     = ""
   description = "First network ID or name to assign to the VTL instance"
 }
 
-variable "vtl_cidr_1" {
+variable "vtl_network1_cidr" {
   type        = string
-  default     = "192.168.2.0/24"
+  default     = ""
   description = "First network IP addresse range"
 }
 
-variable "vtl_gateway_1" {
+variable "vtl_network1_gateway" {
   type        = string
-  default     = "192.168.2.1"
+  default     = ""
   description = "First network gateway IP address"
 }
 
-variable "vtl_network_name_2" {
+variable "vtl_network1_ip_address" {
+  type        = string
+  default     = ""
+  description = "Specific IP address to assign to the first network rather than automatic assignment within the IP range"
+}
+
+variable "vtl_network2_name" {
   type        = string
   default     = ""
   description = "Second network ID or name to assign to the VTL instance"
 }
 
-variable "vtl_cidr_2" {
+variable "vtl_network2_cidr" {
   type        = string
   default     = ""
   description = "Second network IP addresse range"
 }
 
-variable "vtl_gateway_2" {
+variable "vtl_network2_gateway" {
   type        = string
   default     = ""
   description = "Second network gateway IP address"
 }
 
-variable "vtl_network_name_3" {
+variable "vtl_network2_ip_address" {
+  type        = string
+  default     = ""
+  description = "Specific IP address to assign to the second network rather than automatic assignment within the IP range"
+}
+
+variable "vtl_network3_name" {
   type        = string
   default     = ""
   description = "Third network ID or name to assign to the VTL instance"
 }
 
-variable "vtl_cidr_3" {
+variable "vtl_network3_cidr" {
   type        = string
   default     = ""
   description = "Third network IP addresse range"
 }
 
-variable "vtl_gateway_3" {
+variable "vtl_network3_gateway" {
   type        = string
   default     = ""
   description = "Third network gateway IP address"
+}
+
+variable "vtl_network3_ip_address" {
+  type        = string
+  default     = ""
+  description = "Specific IP address to assign to the third network rather than automatic assignment within the IP range"
 }
 
 variable "vtl_placement_group" {
@@ -217,103 +310,15 @@ variable "vtl_placement_group" {
   default     = ""
   description = "Server group name where the VTL instance will be placed, as defined for the selected Power Systems Virtual Server CRN"
 }
+
 variable "vtl_affinity_policy" {
   type        = string
   default     =  "anti-affinity"
   description = "Storage anti-affinity policy to use for placemant of the VTL volume if PVM instance IDs are sepcified"
 }
+
 /*variable "vtl_pvm_instances" {
   type        = string
-  default     = "faac4b76-03b4-44e1-b0b0-0f929a5a4213"
+  default     = ""
   description = "Comma-separated list of PVM instance IDs for the storage anti-affinity policy, as defined for the selected Power Systems Virtual Server CRN"
 }*/
-
-variable "vtl_ip_address_1" {
-  type        = string
-  default     = "192.168.2.5"
-  description = "Specific IP address to assign to the first network rather than automatic assignment within the IP range"
-}
-
-variable "vtl_ip_address_2" {
-  type        = string
-  default     = ""
-  description = "Specific IP address to assign to the second network rather than automatic assignment within the IP range"
-}
-
-variable "vtl_ip_address_3" {
-  type        = string
-  default     = ""
-  description = "Specific IP address to assign to the third network rather than automatic assignment within the IP range"
-}
-
-
-# COS proxy server details
-variable "proxy_SSHkey_name" {
-  type        = string
-  default     = "proxy"
-  description = "Name of the SSH key for the proxy server"
-
-}
- 
-variable "proxy_public_key" {
-  type        = string
-  default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCTcdtPy+CkJFh2RPz3tGOF0ZPC9FUb1b1ZnwiuMN2sRDpVVtGsZC2soYMvz1YkMOpZTc+UvnUWRl3pm0XFe1udisbvyc4j/AKbCz69n6M1x5FXkxh83gURkmrdnjJvC9Dh4ScciSt05HEMYIeXJyiGh+dc0d6XHz6K7WcjdL+laOV72bCy56y9mZBzDD3/vSKdXnfhfl4i7cinWr3xMfiBE3AHkJcglTrr2E8K6OXwABXeAdk+5AECcrGMj6M1i3Gx7Sqkfd/CPYJGK4eCdIkxbgwE64+qgEr028I0fBxZ7MTm+GKuySjZA+pLwp1VggmK9GEj8ItumdGtL33F4ZY9 rsa-key-20221004"
-  description = "Proxy server public key ffor SSH key creation"
-}
-
- #instance details
-variable "proxy_hostname" {
-  type        = string
-  default     = "FS.DRaaS.proxy.hostname"
-  description = "Proxy server hostname"
-}
-
-variable "proxy_domain" {
-  type        = string
-  default     = "FS.DRaaS.proxy.domain"
-  description = "Proxy server domain name"
-}
-
-variable "proxy_os" {
-  type        = string
-  default     = "CENTOS_7_64"
-  description = "Proxy server OS reference code"
-}
-
-variable "proxy_speed" {
-  type        = number
-  default     = 100
-  description = "Proxy server network speed in Mb/s for the instance's network components"
-}
-
-variable "proxy_cores" {
-  type        = number
-  default     = 2
-  description = "Number of CPU cores to allocate for the proxy server"
-}
-
-variable "proxy_memory" {
-  type        = number
-  default     = 4096
-  description = "Proxy server memory amount in MB"
-}
-
-
-# Cloud connection details
-variable "cloud_connection_name" {
-  type        = string
-  default     = "FS_DRaaS_cloud_connection"
-  description = "The name of the Power direct link to Classic using Generic Routing Encapsulation (GRE) tunnel"
-}
-
-variable "cloud_connection_speed" {
-  type        = number
-  default     = 500
-  description = "Cloud connection speed in Mb/s"
-}
-
-variable "cloud_connection_gre_cidr" {
-  type        = string
-  default     = "172.20.0.1/29"
-  description = "Range of IP addresses for GRE as Classless Inter-Domain Routing (CIDR)"
-}
