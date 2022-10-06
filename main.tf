@@ -32,7 +32,7 @@ resource "ibm_network_gateway" "gateway" {
 
 resource "ibm_network_vlan" "test_vlan" {
   name            = var.vlan_name
-  datacenter      = var.datacenter_for_classic
+  datacenter      = var.vlan_datacenter
   type            = var.vlan_type
 }
 
@@ -83,31 +83,31 @@ resource "ibm_pi_key" "sshkeys" {
 
 resource "ibm_pi_network" "power_network_1" {
   provider             = ibm.tile
-  pi_network_name      = var.vtl_network_name_1
+  pi_network_name      = var.vtl_network1_name
   pi_cloud_instance_id = local.pid
   pi_network_type      = "vlan"
-  pi_cidr              = var.vtl_cidr_1
-  pi_gateway           = var.vtl_gateway_1
+  pi_cidr              = var.vtl_network1_cidr
+  pi_gateway           = var.vtl_network1_gateway
 }
 
 resource "ibm_pi_network" "power_network_2" {
   provider             = ibm.tile
-  count = length(var.vtl_network_name_2) > 0 ? 1 : 0
-  pi_network_name      = var.vtl_network_name_2
+  count = length(var.vtl_network2_name) > 0 ? 1 : 0
+  pi_network_name      = var.vtl_network2_name
   pi_cloud_instance_id = local.pid
   pi_network_type      = "vlan"
-  pi_cidr              = var.vtl_cidr_2
-  pi_gateway           = var.vtl_gateway_2 
+  pi_cidr              = var.vtl_network2_cidr
+  pi_gateway           = var.vtl_network2_gateway
 }
 
 resource "ibm_pi_network" "power_network_3" {
   provider             = ibm.tile
-  count = length(var.vtl_network_name_3) > 0 ? 1 : 0
-  pi_network_name      = var.vtl_network_name_3
+  count = length(var.vtl_network3_name) > 0 ? 1 : 0
+  pi_network_name      = var.vtl_network3_name
   pi_cloud_instance_id = local.pid
   pi_network_type      = "vlan"
-  pi_cidr              = var.vtl_cidr_3
-  pi_gateway           = var.vtl_gateway_3 
+  pi_cidr              = var.vtl_network3_cidr
+  pi_gateway           = var.vtl_network3_gateway
 }
 
 data "ibm_pi_network" "network_1" {
@@ -118,14 +118,14 @@ data "ibm_pi_network" "network_1" {
 
 data "ibm_pi_network" "network_2" {
   provider             = ibm.tile
-  count = length(var.vtl_network_name_2) > 0 ? 1 : 0
+  count = length(var.vtl_network2_name) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
   pi_network_name      = ibm_pi_network.power_network_2[0].pi_network_name
 }
 
 data "ibm_pi_network" "network_3" {
   provider             = ibm.tile
-  count = length(var.vtl_network_name_3) > 0 ? 1 : 0
+  count = length(var.vtl_network3_name) > 0 ? 1 : 0
   pi_cloud_instance_id = local.pid
   pi_network_name      = ibm_pi_network.power_network_3[0].pi_network_name
 }
@@ -162,20 +162,20 @@ resource "ibm_pi_instance" "instance" {
   pi_license_repository_capacity = var.vtl_licensed_repository_capacity
   pi_network {
     network_id = data.ibm_pi_network.network_1.id
-    ip_address = length(var.vtl_ip_address_1) > 0 ? var.vtl_ip_address_1 : ""
+    ip_address = length(var.vtl_network1_ip_address) > 0 ? var.vtl_network1_ip_address : ""
   }
   dynamic "pi_network" {
-    for_each = var.vtl_network_name_2 == "" ? [] : [1]
+    for_each = var.vtl_network2_name == "" ? [] : [1]
     content {
       network_id = data.ibm_pi_network.network_2[0].id
-      ip_address = length(var.vtl_ip_address_2) > 0 ? var.vtl_ip_address_2 : ""
+      ip_address = length(var.vtl_network2_ip_address) > 0 ? var.vtl_network2_ip_address : ""
     }
   }
   dynamic "pi_network" {
-    for_each = var.vtl_network_name_3 == "" ? [] : [1]
+    for_each = var.vtl_network3_name == "" ? [] : [1]
     content {
       network_id = data.ibm_pi_network.network_3[0].id
-      ip_address = length(var.vtl_ip_address_3) > 0 ? var.vtl_ip_address_3 : ""
+      ip_address = length(var.vtl_network3_ip_address) > 0 ? var.vtl_network3_ip_address : ""
     }
   }
 }
