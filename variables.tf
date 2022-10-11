@@ -1,13 +1,13 @@
 # Classic infrastructure details
 variable "classic_region" {
   type        = string
-  default     = "jp-tok"
+  default     = ""
   description = "Classic infrastructure region"
 }
 
 variable "classic_zone" {
   type        = string
-  default     = "jp-tok-4"
+  default     = ""
   description = "Classic infrastructure zone"
 }
 
@@ -23,58 +23,6 @@ variable "classic_api_key" {
   description = "Classic infrastructure API key"
 }
 
-
-# Vyatta router details in Classic infrastructure
-variable "vyatta_SSHkey_name" {
-  type        = string
-  default     = ""
-  description = "Name of the SSH key for Vyatta router"
-}
-
-variable "vyatta_public_key" {
-  type        = string
-  default     = ""
-  description = "Vyatta router public key for SSH key creation"
-}
-
-variable "vyatta_name" {
-  type        = string
-  default     = "FS.DRaas.vyatta.domain"
-  description = "Vyatta router name"
-}
-
-variable "vyatta_domain"{
-  type        = string
-  default     = "FS.DRaas.vyatta.domain"
-  description = "Domain name for Vyatta router"
-}
-
-variable "vyatta_hostname" {
-  type        = string
-  default     = "FS.DRaas.vyatta.hostname"
-  description = "Vyatta router hostname"
-}
-
-variable "vyatta_speed" {
-  type        = number
-  default     = 1000
-  description = "Vyatta network speed in Mb/s"
-}
-
-variable "vyatta_public_bandwidth" {
-  type        = number
-  default     = 20000
-  description = "Allowed Vyatta traffic over public network in GB/month"
-}
-
-variable "vyatta_memory" {
-  type        = number
-  default     = 64
-  description = "Vyatta router memory amount in MB"
-}
-
-
-# VLAN details in Classic infrastructure
 variable "vlan_name" {
   type        = string
   default     = "FS_DRaas_vlan_name"
@@ -92,7 +40,6 @@ variable "vlan_type" {
   default     = "PRIVATE"
   description = "VLAN type: 'PRIVATE', 'PUBLIC'"
 }
-
 
 # COS proxy server details in Classic infrastructure
 variable "proxy_SSHkey_name" {
@@ -157,12 +104,6 @@ variable "cloud_connection_name" {
   type        = string
   default     = "FS_DRaaS_cloud_connection"
   description = "Name of the direct link in Power infrastructure to connect to Classic infrastructure using Generic Routing Encapsulation (GRE) tunnel"
-}
-
-variable "cloud_connection_gre_cidr" {
-  type        = string
-  default     = ""
-  description = "Range of IP addresses for GRE as Classless Inter-Domain Routing (CIDR)"
 }
 
 variable "cloud_connection_speed" {
@@ -310,15 +251,3 @@ variable "vtl_placement_group" {
   default     = ""
   description = "Server group name where the VTL instance will be placed, as defined for the selected Power Systems Virtual Server CRN"
 }
-
-variable "vtl_affinity_policy" {
-  type        = string
-  default     =  "anti-affinity"
-  description = "Storage anti-affinity policy to use for placemant of the VTL volume if PVM instance IDs are sepcified"
-}
-
-/*variable "vtl_pvm_instances" {
-  type        = string
-  default     = ""
-  description = "Comma-separated list of PVM instance IDs for the storage anti-affinity policy, as defined for the selected Power Systems Virtual Server CRN"
-}*/

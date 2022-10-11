@@ -1,60 +1,11 @@
-resource "ibm_compute_ssh_key" "hce_ssh_key" {
-    label      = var.vyatta_SSHkey_name
-    public_key = var.vyatta_public_key
-}
-
-data "ibm_compute_ssh_key" "public_key" {
-    label = ibm_compute_ssh_key.hce_ssh_key.label
-}
-
-resource "ibm_network_gateway" "gateway" {
-  name = var.vyatta_domain
-
-  members {
-    hostname             = var.vyatta_hostname
-    domain               = var.vyatta_domain
-    datacenter           = ibm_network_vlan.test_vlan.datacenter
-    network_speed        = var.vyatta_speed
-    package_key_name     = "VIRTUAL_ROUTER_APPLIANCE_10_GPBS" 
-    private_network_only = false
-    tcp_monitoring       = true
-    process_key_name     = "INTEL_XEON_5218_2_30"
-    os_key_name          = "OS_VIRTUAL_ROUTER_APPLIANCE_20_X_UP_TO_20_GBPS_SUBSCRIPTION_EDITION_64_BIT"
-    redundant_network    = false
-    disk_key_names       = ["HARD_DRIVE_4_00_TB_SATA"]
-    public_bandwidth     = var.vyatta_public_bandwidth
-    memory               = var.vyatta_memory
-    ipv6_enabled         = true
-    ssh_key_ids          = [data.ibm_compute_ssh_key.public_key.id]
-    user_metadata        = "${file("Vyatta_inter.sh")}"
-  }
-}
-
 resource "ibm_network_vlan" "test_vlan" {
   name            = var.vlan_name
   datacenter      = var.vlan_datacenter
   type            = var.vlan_type
 }
-
-resource "ibm_subnet" "portable_subnet" {
-  type       = "Portable"
-  private    = true
-  ip_version = 4
-  capacity   = 32
-  vlan_id    = ibm_network_vlan.test_vlan.id
-  notes      = "portable_subnet"
-}
-
-resource "ibm_network_gateway_vlan_association" "gateway_vlan_association" {
-  gateway_id      = ibm_network_gateway.gateway.id
-  network_vlan_id = ibm_network_vlan.test_vlan.id
-}
-
 data "ibm_network_vlan" "vlan" {
     name = ibm_network_vlan.test_vlan.name
 }
-
-
 # VTL tile Instance Creation 
 data "ibm_pi_catalog_images" "catalog_images" {
   provider             = ibm.tile
@@ -155,9 +106,11 @@ resource "ibm_pi_instance" "instance" {
   pi_instance_name     = var.vtl_instance_name
   pi_proc_type         = var.vtl_processor_type
   pi_image_id          = length(local.private_image_id) == 0 ? ibm_pi_image.stock_image_copy[0].image_id : local.private_image_id
-  pi_key_pair_name     = ibm_pi_key.sshkeys.id
+  pi_key_pair_name     = ibm_pi_key.sshkeys.pi_key_name
   pi_sys_type          = var.vtl_sys_type
   pi_storage_type      = var.vtl_storage_type
+  pi_health_status     = "WARNING"
+  pi_storage_pool      = "Tier1-Flash-2"
   pi_placement_group_id = local.placement_group_id
   pi_license_repository_capacity = var.vtl_licensed_repository_capacity
   pi_network {
@@ -200,8 +153,8 @@ resource "ibm_compute_vm_instance" "twc_terraform_sample" {
   disks                      = [25, 10, 20]
   user_metadata              = "${file("install_nginx.sh")}"
   local_disk                 = false
-  private_vlan_id            = data.ibm_network_vlan.vlan.id
   ssh_key_ids                =  [ibm_compute_ssh_key.proxy_ssh_key.id]
+  private_vlan_id            = data.ibm_network_vlan.vlan.id
 }
 
 
@@ -210,13 +163,8 @@ resource "ibm_pi_cloud_connection" "cloud_connection" {
   provider                   = ibm.tile
   pi_cloud_instance_id        = local.pid
   pi_cloud_connection_name    = var.cloud_connection_name
-  pi_cloud_connection_classic_enabled = true
-  pi_cloud_connection_networks = [data.ibm_pi_network.network_1.pi_network_name]
+  pi_cloud_connection_classic_enabled = false
   pi_cloud_connection_metered = true
-  pi_cloud_connection_speed    = var.cloud_connection_speed
-  pi_cloud_connection_gre_cidr = var.cloud_connection_gre_cidr
-  pi_cloud_connection_gre_destination_address= ibm_network_gateway.gateway.private_ipv4_address
+  pi_cloud_connection_speed   = var.cloud_connection_speed
+  
 }
-
-
-
