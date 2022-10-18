@@ -73,6 +73,11 @@ variable "network_3_ip" {
   default     = ""
   description = "Specific IP address to assign to the third network rather than automatic assignment within the IP range"
 }
+variable "network_public" {
+  type        = string
+  default     = ""
+  description = "Public network name to assign to the VTL instance"
+}
 variable "placement_group" {
   type        = string
   default     = ""
