@@ -31,7 +31,7 @@ variable "processor_type" {
 variable "sys_type" {
   type        = string
   default     = "s922"
-  description = "The type of system on which to create the VTL: 's922', 'e880', 'e980', 'e1080', or 's1022'"
+  description = "The type of system on which to create the VTL: 's922', 'e980'"
 }
 variable "storage_type" {
   type        = string
