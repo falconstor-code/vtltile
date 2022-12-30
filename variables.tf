@@ -88,3 +88,18 @@ variable "pvm_instances" {
   default     = ""
   description = "The comma-separated list of PVM instance IDs for the storage anti-affinity policy, as defined for the selected Power Systems Virtual Server CRN"
 }
+variable "volume_configuration_size" {
+  type        = number
+  default     = 20
+  description = "The size of the VTL Configuration Repository in GB"
+}
+variable "volume_index_size" {
+  type        = number
+  default     = 1024
+  description = "The size of the index block storage for VTL Deduplication Repository in GB; the maximum size of each volume is 2 TB"
+}
+variable "volume_tape_size" {
+  type        = number
+  default     = 1024
+  description = "The size of the block storage for VTL tape backup cache in GB; the maximum size of each volume is 2 TB"
+}
