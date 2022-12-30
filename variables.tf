@@ -16,7 +16,7 @@ variable "memory" {
 variable "processors" {
   type        = number
   default     = 2
-  description = "The number of vCPUs to assign to the VTL as visible within the guest operating system"
+  description = "The number of vCPUs, AKA virtual processors, to assign to the VTL virtual machine instance; one vCPU is equal to one physical CPU core."
 }
 variable "instance_name" {
   type        = string
@@ -36,7 +36,7 @@ variable "sys_type" {
 variable "storage_type" {
   type        = string
   default     = "tier1"
-  description = "The type of storage tier to assign for storage volume performance: 'tier1' or 'tier3'"
+  description = "The type of storage tier for used volumes: 'tier1' (high performance) or 'tier3'"
 }
 variable "ssh_key_name" {
   type        = string
