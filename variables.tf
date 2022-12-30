@@ -15,7 +15,7 @@ variable "memory" {
 }
 variable "processors" {
   type        = number
-  default     = 2
+  default     = 1
   description = "The number of vCPUs, AKA virtual processors, to assign to the VTL virtual machine instance; one vCPU is equal to one physical CPU core."
 }
 variable "instance_name" {
