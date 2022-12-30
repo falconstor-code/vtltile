@@ -91,15 +91,15 @@ variable "pvm_instances" {
 variable "volume_configuration_size" {
   type        = number
   default     = 20
-  description = "The size of the VTL Configuration Repository in GB"
+  description = "The size of the block storage volume for VTL Configuration Repository in GB"
 }
 variable "volume_index_size" {
   type        = number
   default     = 1024
-  description = "The size of the index block storage for VTL Deduplication Repository in GB; the maximum size of each volume is 2 TB"
+  description = "The size of the block storage volume for the index of VTL Deduplication Repository in GB; the maximum size of a volume is 2 TB"
 }
 variable "volume_tape_size" {
   type        = number
   default     = 1024
-  description = "The size of the block storage for VTL tape backup cache in GB; the maximum size of each volume is 2 TB"
+  description = "The size of the block storage volume for VTL tape backup cache in GB; the maximum size of a volume is 2 TB"
 }
