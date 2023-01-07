@@ -1,6 +1,6 @@
 ## Before you begin
 
-  1. Refer to the [Solution Sizing](http://ibmsizing.falconstor.com) page (login password ibm2022) to get the sizing information about the deduplication repository, backup cache, memory, CPU, and the machine type.
+  1. Refer to the [Solution Sizing](http://ibmsizing.falconstor.com) page (login password IBM2023) to get the sizing information about the deduplication repository, backup cache, memory, CPU, and the machine type.
   2. Refer to the [Cost Estimation](https://cloud.ibm.com/catalog/services/power-systems-virtual-server) page, click **Estimate costs** on the top right side panel, select **Virtual Tape Library** as OS, enter values for usage parameters based on the Solution Sizing tool results, click **Calculate cost** and **Save** to see the cost. Click **Review estimate** to go the **Cost estimator** page. Additional costs may apply based on extra capacity for the Cloud Object Storage (COS), or additional network and infrastructure components.
   3. Refer to the [Deployment Guide](https://falconstor-download.s3.us-east.cloud-object-storage.appdomain.cloud/FalconStor%20VTL%20for%20IBM%20Deployment%20Guide.pdf) for deployment scenarios and setup instructions.
   4. Verify that you have Manager service access role for IBM Cloud Schematics.
