@@ -251,3 +251,18 @@ variable "vtl_placement_group" {
   default     = ""
   description = "Server group name where the VTL instance will be placed, as defined for the selected Power Systems Virtual Server CRN"
 }
+variable "volume_configuration_size" {
+  type        = number
+  default     = 20
+  description = "The size of the block storage volume for VTL Configuration Repository in GB"
+}
+variable "volume_index_size" {
+  type        = number
+  default     = 1024
+  description = "The size of the block storage volume for the index of VTL Deduplication Repository in GB; the maximum size of a volume is 2 TB"
+}
+variable "volume_tape_size" {
+  type        = number
+  default     = 1024
+  description = "The size of the block storage volume for VTL tape backup cache in GB; the maximum size of a volume is 2 TB"
+}
