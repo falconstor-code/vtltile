@@ -157,7 +157,6 @@ resource "ibm_compute_vm_instance" "twc_terraform_sample" {
   private_vlan_id            = data.ibm_network_vlan.vlan.id
 }
 
-
 #Cloud connection creation 
 resource "ibm_pi_cloud_connection" "cloud_connection" {
   provider                   = ibm.tile
@@ -166,5 +165,40 @@ resource "ibm_pi_cloud_connection" "cloud_connection" {
   pi_cloud_connection_classic_enabled = false
   pi_cloud_connection_metered = true
   pi_cloud_connection_speed   = var.cloud_connection_speed
-  
+}
+
+    resource "ibm_pi_volume" "configuration_volume"{
+  pi_volume_size       = var.volume_configuration_size
+  pi_volume_name       = "${var.instance_name}_configuration-volume"
+  pi_volume_type       = var.storage_type
+  pi_volume_shareable  = true
+  pi_cloud_instance_id = local.pid
+}
+data "ibm_pi_volume" "configuration_volume" {
+  pi_volume_name       = ibm_pi_volume.configuration_volume.pi_volume_name
+  pi_cloud_instance_id = local.pid
+}
+
+resource "ibm_pi_volume" "index_volume"{
+  pi_volume_size       = var.volume_index_size
+  pi_volume_name       = "${var.instance_name}_index-volume"
+  pi_volume_type       = var.storage_type
+  pi_volume_shareable  = true
+  pi_cloud_instance_id = local.pid
+}
+data "ibm_pi_volume" "index_volume" {
+  pi_volume_name       = ibm_pi_volume.index_volume.pi_volume_name
+  pi_cloud_instance_id = local.pid
+}
+
+resource "ibm_pi_volume" "tape_volume"{
+  pi_volume_size       = var.volume_tape_size
+  pi_volume_name       = "${var.instance_name}_tape-volume"
+  pi_volume_type       = var.storage_type
+  pi_volume_shareable  = true
+  pi_cloud_instance_id = local.pid
+}
+data "ibm_pi_volume" "tape_volume" {
+  pi_volume_name       = ibm_pi_volume.tape_volume.pi_volume_name
+  pi_cloud_instance_id = local.pid
 }
