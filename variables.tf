@@ -18,13 +18,13 @@ variable "ibmcloud_api_key" {
 }
 
 variable "region" {
-  description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
+  description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to list available regions."
   type        = string
   default     = ""
 }
 
 variable "zone" {
-  description = "zone where VPC will be created. ex:jp-tok-1,us-south-1"
+  description = "Zone where VPC will be created, for example, jp-tok-1, us-south-1, etc."
   type        = string
   default     = ""
 }
@@ -38,13 +38,13 @@ variable "powervs_zone" {
 variable "windows_ssh_publickey" {
   type        = string
   default     = ""
-  description = "windows_ssh_publickey"
+  description = "Windows public key for SSH key creation"
 }
 
 variable "squid_ssh_publickey" {
   type        = string
   default     = ""
-  description = "squid_ssh_publickey as a optional,If we provide the public for squid it is going to create Squid server,If not it will not create the squid"
+  description = "Option to create a Squid proxy server if the SSH public key is specified; if not, a squid server will not be created"
 }
 
 variable "vtl_public_key" {
@@ -56,32 +56,30 @@ variable "vtl_public_key" {
 variable "IBMI_ssh_publickey" {
   type        = string
   default     = ""
-  description = "IBMI_ssh_publickey"
+  description = "IBM i public key for SSH key creation"
 }
 
 variable "AIX_ssh_publickey" {
   type        = string
   default     = ""
-  description = "AIX_ssh_publickey"
+  description = "AIX public key for SSH key creation"
 }
 
 variable "linux_ssh_publickey" {
   type        = string
   default     = ""
-  description = "linux_ssh_publickey"
+  description = "Linux public key for SSH key creation"
 }
 
-
-
 variable "powervs_resource_group_name" {
-  description = "Existing IBM Cloud resource group name."
+  description = "Existing IBM Cloud resource group name"
   type        = string
   default     = "Default"
 
 }
 
 variable "powervs_management_network" {
-  description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create."
+  description = "Name and CIDR of the IBM Cloud PowerVS management network subnet to create"
   type = object({
     name = string
     cidr = string
@@ -93,7 +91,7 @@ variable "powervs_management_network" {
 }
 
 variable "powervs_backup_network" {
-  description = "Name of the IBM Cloud PowerVS backup network and CIDR to create."
+  description = "Name and CIDR of the IBM Cloud PowerVS backup network subnet to create."
   type = object({
     name = string
     cidr = string
@@ -105,7 +103,7 @@ variable "powervs_backup_network" {
 }
 
 variable "cloud_connection" {
-  description = "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false)"
+  description = "Cloud connection parameters: Speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), Count (1 or 2 connections), Global Routing (true or false), Metered (true or false)"
   type = object({
     speed          = number
     global_routing = bool
@@ -122,94 +120,89 @@ variable "cloud_connection" {
 variable "vtl_index_volume_size" {
   type        = number
   default     = 20
-  description = "block-storage-volume maximum size of the volume in 2000GB, it will fail if we exceed the size"
+  description = "The size of the block storage volume for the index of VTL Deduplication Repository in GB; the maximum size of a volume is 2 TB"
 }
 
 variable "vtl_tape_volume_size" {
   type        = number
   default     = 20
-  description = "tape-storage-volume maximum size of the volume in 2000GB, it will fail if we exceed the size"
+  description = "The size of the block storage volume for VTL tape backup cache in GB; the maximum size of a volume is 2 TB"
 }
 
 variable "vtl_configuration_volume_size" {
   type        = number
   default     =20
-  description = "configuration-storage-volume maximum size of the volume in 2000GB, it will fail if we exceed the size"
+  description = "The size of the block storage volume for VTL Configuration Repository in GB"
 }
-
-
-
 
 variable "vtl_memory" {
   type        = number
   default     = 18
-  description = " VTL memory amount in GB; it should be >= 16 + (2 * licensed_repository_capacity)"
+  description = "The amount of memory to assign to the VTL instance in GB according to the following formula: memory >= 16 + (2 * license_repository_capacity)"
 }
 
 variable "vtl_processors" {
   type        = number
   default     = 2
-  description = "Number of CPU cores to allocate for VTL instance"
+  description = "The number of vCPUs, AKA virtual processors, to assign to the VTL instance; one vCPU is equal to one physical CPU core."
 }
 
 variable "vtl_processor_type" {
   type        = string
   default     = "shared"
-  description = "VTL processor type: 'shared', 'capped', or 'dedicated'"
+  description = "The type of processor mode in which the VTL will run: 'shared', 'capped', or 'dedicated'"
 }
 
 variable "vtl_sys_type" {
   type        = string
   default     = "s922"
-  description = "Type of system on which to create the VTL instance: 's922', 'e880', 'e980', 'e1080', or 's1022'"
+  description = "The type of system on which to create the VTL: 's922', 'e980'"
 }
 
 variable "vtl_storage_type" {
   type        = string
   default     = "tier3"
-  description = "Type of storage tier to assign to the VTL instance based on required performance: 'tier1' or 'tier3'"
+  description = "The type of storage tier for used volumes: 'tier1' (high performance) or 'tier3'"
 }
-
-
 
 variable "vtl_public_network_name" {
   type        = string
   default     = ""
-  description = "First network ID or name to assign to the VTL instance"
+  description = "The first network ID or name to assign to the VTL instance"
 }
 
 variable "vtl_public_cidr" {
   type        = string
   default     = ""
-  description = "First network IP addresse range"
+  description = "The first network IP addresse range"
 }
 
 variable "vtl_public_gateway" {
   type        = string
   default     = ""
-  description = "First network gateway IP address"
+  description = "The first network gateway IP address"
 }
 
-
 variable "powervs_image_names" {
-  description = "List of Images to be imported into cloud account from catalog images."
+  description = "List of images to be imported into cloud account from the IBM catalog images"
   type        = list(string)
   default     = ["RHEL8-SP6","7200-05-05","IBMi-72-09-2924-8"]
 }
 
-
 variable "powervs_os_image_name1" {
-  description = "Image Name for PowerVS Instance"
+  description = "OS image 1 name for a PowerVS Instance"
   type        = string
   default     = "RHEL8-SP6"
 }
+
 variable "powervs_os_image_name2" {
-  description = "Image Name for PowerVS Instance"
+  description = "OS image 2 name for a PowerVS Instance"
   type        = string
   default     = "7200-05-05"
 }
+
 variable "powervs_os_image_name3" {
-  description = "Image Name for PowerVS Instance"
+  description = "OS image 2 name for a PowerVS Instance"
   type        = string
   default     = "IBMi-72-09-2924-8"
 }
@@ -217,16 +210,14 @@ variable "powervs_os_image_name3" {
 variable "IBMI_memory" {
   type        = number
   default     = 18
-  description = "IBMI_memory"
+  description = "The amount of memory to assign to the IBM i instance in GB"
 }
 
 variable "IBMI_processors" {
   type        = number
   default     = 2
-  description = "IBMI_processors"
+  description = "The number of vCPUs, AKA virtual processors, to assign to the IBM i virtual machine instance"
 }
-
-
 
 variable "IBMI_proc_type" {
   type        = string
@@ -246,26 +237,17 @@ variable "IBMI_storage_type" {
   description = "Type of storage tier to assign to the VTL instance based on required performance: 'tier1' or 'tier3'"
 }
 
-
-
-
-
-
-
-
 variable "AIX_memory" {
   type        = number
   default     = 18
-  description = "AIX_memory"
+  description = "The amount of memory to assign to the AIX instance in GB"
 }
 
 variable "AIX_processors" {
   type        = number
   default     = 2
-  description = "AIX_processors"
+  description = "The number of vCPUs, AKA virtual processors, to assign to the AIX virtual machine instance"
 }
-
-
 
 variable "AIX_proc_type" {
   type        = string
@@ -285,22 +267,17 @@ variable "AIX_storage_type" {
   description = "Type of storage tier to assign to the VTL instance based on required performance: 'tier1' or 'tier3'"
 }
 
-
-
-
-
 variable "linux_memory" {
   type        = number
   default     = 18
-  description = "linux_memory"
+  description = "The amount of memory to assign to the Linux instance in GB"
 }
 
 variable "linux_processors" {
   type        = number
   default     = 2
-  description = "linux_processors"
+  description = "The number of vCPUs, AKA virtual processors, to assign to the Linux virtual machine instance"
 }
-
 
 variable "linux_proc_type" {
   type        = string
