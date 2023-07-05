@@ -9,7 +9,6 @@ variable "prefix" {
   }
 }
 
-
 variable "ibmcloud_api_key" {
   description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
   type        = string
@@ -222,13 +221,13 @@ variable "IBMI_processors" {
 variable "IBMI_proc_type" {
   type        = string
   default     = "shared"
-  description = "IBMI_proc_type"
+  description = "The type of processor mode in which the IBM i will run: 'shared', 'capped', or 'dedicated'"
 }
 
 variable "IBMI_sys_type" {
   type        = string
   default     = "s922"
-  description = "IBMI_sys_type"
+  description = "The type of system on which to create IBM i VTL: 's922', 'e980'"
 }
 
 variable "IBMI_storage_type" {
@@ -252,13 +251,13 @@ variable "AIX_processors" {
 variable "AIX_proc_type" {
   type        = string
   default     = "shared"
-  description = "AIX_proc_type"
+  description = "The type of processor mode in which the AIX will run: 'shared', 'capped', or 'dedicated'"
 }
 
 variable "AIX_sys_type" {
   type        = string
   default     = "s922"
-  description = "AIX_sys_type"
+  description = "The type of system on which to create the AIX: 's922', 'e980'"
 }
 
 variable "AIX_storage_type" {
@@ -282,34 +281,29 @@ variable "linux_processors" {
 variable "linux_proc_type" {
   type        = string
   default     = "shared"
-  description = "linux_proc_type"
+  description = "The type of processor mode in which the Linux will run: 'shared', 'capped', or 'dedicated'"
 }
 
 variable "linux_sys_type" {
   type        = string
   default     = "s922"
-  description = "linux_sys_type"
+  description = "The type of system on which to create the Linux: 's922', 'e980'"
 }
 
 variable "linux_storage_type" {
   type        = string
   default     = "tier3"
-  description = "Type of storage tier to assign to the VTL instance based on required performance: 'tier1' or 'tier3'"
+  description = "Type of storage tier to assign to the Linux instance based on required performance: 'tier1' or 'tier3'"
 }
 
 variable "peer_cidrs" {
-  description = "CIDR's of the peer to connect to the gateway, it is required parameter as you provide the mode of VPN gateway"
+  description = "Lis of CIDRs of the peer to connect to the gateway; required if the mode of VPN gateway is specified"
   type        = list(string)
   default     = [""]
 }
 
 variable "mode" {
-  description = "If you provide the MODE parameter it is going to create the VPN gateway otherwise it will not create "
+  description = "Option to create the VPN gateway; if not specified, the VPN gateway will not be created."
   type        = string
   default     = ""
 }
-
-
-
-
-
