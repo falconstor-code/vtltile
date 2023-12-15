@@ -3,7 +3,7 @@ variable "crn" {
   default     = ""
   description = "Power Systems Virtual Server CRN"
 }
-variable "license_repository_capacity" {
+variable "repository_capacity" {
   type        = number
   default     = 1
   description = "The StorSafe VTL licensed repository capacity in TB"
@@ -13,7 +13,7 @@ variable "memory" {
   default     = 18
   description = "The amount of memory to assign to the StorSafe VTL instance in GB according to the following formula: memory >= 16 + (2 * license_repository_capacity)"
 }
-variable "processors" {
+variable "vcpus" {
   type        = number
   default     = 1
   description = "The number of vCPUs, AKA virtual processors, to assign to the StorSafe VTL instance; one vCPU is equal to one physical CPU core."
@@ -23,12 +23,12 @@ variable "instance_name" {
   default     = ""
   description = "The name to assign to the StorSafe VTL instance"
 }
-variable "processor_type" {
+variable "processor_mode" {
   type        = string
   default     = "shared"
   description = "The type of processor mode in which the StorSafe VTL instance will run: 'shared', 'capped', or 'dedicated'"
 }
-variable "sys_type" {
+variable "system_type" {
   type        = string
   default     = "s922"
   description = "The type of system on which to create the StorSafe VTL instance: 's922', 'e980'"
