@@ -53,7 +53,7 @@ resource "ibm_pi_instance" "instance" {
   pi_sys_type          = var.system_type
   pi_storage_type      = var.storage_type
   pi_key_pair_name     = length(var.ssh_key_name) > 0 ? data.ibm_pi_key.key.id : null
-  pi_affinity_policy   = length(var.pvm_instances) > 0 ? var.affinity_policy : null
+  pi_affinity_policy   = length(var.pvm_instances) > 0 ? var.policy_affinity : null
   pi_anti_affinity_instances = length(var.pvm_instances) > 0 ? split(",", var.pvm_instances) : null
   pi_placement_group_id = local.placement_group_id
   pi_license_repository_capacity = var.repository_capacity
