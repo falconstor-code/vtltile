@@ -78,7 +78,7 @@ variable "placement_group" {
   default     = ""
   description = "The server placement group name where the StorSafe VTL instance will be placed, as defined for the selected Power Systems Virtual Server CRN"
 }
-variable "affinity_policy" {
+variable "policy_affinity" {
   type        = string
   default     = "anti-affinity"
   description = "The storage anti-affinity policy to use for placement of the StorSafe VTL volume if PVM instance IDs are specified"
@@ -86,7 +86,7 @@ variable "affinity_policy" {
 variable "pvm_instances" {
   type        = string
   default     = ""
-  description = "The comma-separated list of PVM instance IDs for the storage anti-affinity policy, as defined for the selected Power Systems Virtual Server CRN"
+  description = "The comma-separated list of PVM instance IDs for the storage anti-affinity policy used for placement of the StorSafe instance volume, as defined for the selected Power Systems Virtual Server CRN"
 }
 variable "volume_configuration_size" {
   type        = number
@@ -96,10 +96,10 @@ variable "volume_configuration_size" {
 variable "volume_index_size" {
   type        = number
   default     = 1024
-  description = "The size of the block storage volume for the index of StorSafe VTL Deduplication Repository in GB; the maximum size of a volume is 2 TB"
+  description = "The size of the block storage volume for the index of StorSafe VTL Deduplication Repository in GB; the maximum size of a volume is 2 TB; attach extra volumes later, if necessary"
 }
 variable "volume_tape_size" {
   type        = number
   default     = 1024
-  description = "The size of the block storage volume for the StorSafe VTL tape backup cache in GB; the maximum size of a volume is 2 TB"
+  description = "The size of the block storage volume for the StorSafe VTL tape backup cache in GB; the maximum size of a volume is 2 TB; attach extra volumes later, if necessary"
 }
