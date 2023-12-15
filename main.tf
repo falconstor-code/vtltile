@@ -50,7 +50,7 @@ resource "ibm_pi_instance" "instance" {
   pi_instance_name     = var.instance_name
   pi_proc_type         = var.processor_type
   pi_image_id          = length(local.private_image_id) == 0 ? ibm_pi_image.stock_image_copy[0].image_id : local.private_image_id
-  pi_sys_type          = var.sys_type
+  pi_sys_type          = var.system_type
   pi_storage_type      = var.storage_type
   pi_key_pair_name     = length(var.ssh_key_name) > 0 ? data.ibm_pi_key.key.id : null
   pi_affinity_policy   = length(var.pvm_instances) > 0 ? var.affinity_policy : null
