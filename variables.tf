@@ -31,7 +31,7 @@ variable "processor_mode" {
 variable "system_type" {
   type        = string
   default     = "s922"
-  description = "The type of system on which to create the StorSafe VTL instance: 's922', 'e980'"
+  description = "The type of system on which to create the StorSafe VTL instance: 's922' or 'e980' for Power 9; 's1022' for Power 10 if present in the selected datacenter"
 }
 variable "storage_type" {
   type        = string
