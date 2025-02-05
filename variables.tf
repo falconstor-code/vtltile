@@ -6,7 +6,7 @@ variable "crn" {
 variable "repository_capacity" {
   type        = number
   default     = 1
-  description = "The StorSafe VTL licensed repository capacity in TB"
+  description = "The StorSafe VTL licensed repository capacity in TB; must be higher than zero"
 }
 variable "memory" {
   type        = number
