@@ -17,7 +17,7 @@
 To install the software, configure the following variables:
   * Select a Power Systems Virtual Server CRN.
   * Enter a name for the new image instance that is being created.
-  * Set the amount of the VTL licensed repository capacity.
+  * Set the amount of the VTL licensed repository capacity; must be higher than zero.
   * Set the amount of required memory based on the repository capacity.
   * If necessary, update the required number of CPU cores based on the repository capacity.
   * Check values for the storage type and the system type based on the repository capacity.
