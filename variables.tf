@@ -1,6 +1,5 @@
 variable "crn" {
   type        = string
-  default     = ""
   description = "Power Systems Virtual Server CRN"
 }
 variable "repository_capacity" {
