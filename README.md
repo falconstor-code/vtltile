@@ -17,14 +17,14 @@
 To install the software, configure the following variables:
   * Select a Power Systems Virtual Server CRN.
   * Enter a name for the new image instance that is being created.
-  * Set the amount of the VTL licensed repository capacity; must be higher than zero.
+  * Set the amount of the StorSafe licensed repository capacity; must be higher than zero.
   * Set the amount of required memory based on the repository capacity.
   * If necessary, update the required number of CPU cores based on the repository capacity.
   * Check values for the storage type and the system type based on the repository capacity.
   * Enter a Network Name or ID for the selected server instance. Optionally, enter information for other networks.
   * Optionally, enter an SSH Key Name for the selected server instance.
   * Optionally, enter the space separated list of PVM instance IDs to base storage anti-affinity policy against.
-  * Optionally, enter the name of a placement group where the VTL instance will be placed.
+  * Optionally, enter the name of a placement group where the StorSafe instance will be placed.
   * Review all parameter settings. For details on instance parameters, refer to [Terraform Registry](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_instance).
 
 ## Upgrading to a new version
